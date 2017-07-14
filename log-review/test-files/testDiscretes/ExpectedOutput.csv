@@ -1,0 +1,267 @@
+- - - LOG REVIEW V2.0 - - -
+Target Directory: [........./log-review/test-files/testDiscretes]
+Primary Flag [M] (D = day, H = hour, M = minute, S = second, T = task)
+Search Facet [SearchFacet: severity=[warning], M='Test 1 Message', ST/'', LEV/'', CAT/'']
+Search Facet [SearchFacet: severity=[warning], M~'Test 1 Message', ST/'oogly boogly', LEV/'', CAT/'']
+Search Facet [SearchFacet: severity=[error], M~'Test % Message', ST/'', LEV/'', CAT/'']
+Search Facet [SearchFacet: severity=[normal], M~'Test % Message%', ST/'', LEV/'', CAT/'']
+Search Facet [SearchFacet: severity=[warning], M/'', ST='va ST 2 msg', LEV/'', CAT/'']
+Search Facet [SearchFacet: severity=[warning], M/'', ST~'%ST % msg%', LEV/'', CAT/'']
+Search Facet [SearchFacet: severity=[warning], M/'', ST/'', LEV/'', CAT='DefaultErrorSection']
+Search Facet [SearchFacet: severity=[warning], M/'', ST/'', LEV/'', CAT~'%D%E%S%n%']
+Search Facet [SearchFacet: severity=[warning], M/'', ST/'', LEV='ERROR', CAT/'']
+Search Facet [SearchFacet: severity=[warning], M/'', ST/'', LEV~'ERR%', CAT/'']
+Search Facet [SearchFacet: severity=[warning], M='Error:', ST='NullPointerException', LEV='INFO', CAT='DefaultErrorSection']
+Search Facet [SearchFacet: severity=[warning], M~'Error:%', ST~'Null%nterException', LEV~'INFO', CAT~'DefaultError%tion']
+Search Facet [SearchFacet: severity=[warning], M~'%Error:%', ST~'%NullPointerException%', LEV~'%INFO%', CAT~'%DefaultErrorSection%']
+Search Facet [SearchFacet: severity=[warning], M='', ST='Empty MSG and CAT', LEV='ERROR', CAT='']
+Search Facet [SearchFacet: severity=[warning], M='Empty ST', ST='', LEV='ERROR', CAT='EmptySt']
+Search Facet [SearchFacet: severity=[warning], M/'', ST~'This%is%a%multi%line%trace%', LEV/'', CAT/'']
+Search Facet [SearchFacet: severity=[warning], M/'', ST='This will never happen, see?', LEV/'', CAT/'']
+
+- - - SUMMARY REPORT - ERROR SEVERITY - - -
+#,Search Facet
+3,M~'Test % Message', ST/'', LEV/'', CAT/''
+
+- - - SUMMARY REPORT - WARNING SEVERITY - - -
+#,Search Facet
+1,M='Test 1 Message', ST/'', LEV/'', CAT/''
+1,M~'Test 1 Message', ST/'oogly boogly', LEV/'', CAT/''
+1,M/'', ST='va ST 2 msg', LEV/'', CAT/''
+2,M/'', ST~'%ST % msg%', LEV/'', CAT/''
+2,M/'', ST/'', LEV/'', CAT='DefaultErrorSection'
+2,M/'', ST/'', LEV/'', CAT~'%D%E%S%n%'
+4,M/'', ST/'', LEV='ERROR', CAT/''
+4,M/'', ST/'', LEV~'ERR%', CAT/''
+1,M='Error:', ST='NullPointerException', LEV='INFO', CAT='DefaultErrorSection'
+1,M~'Error:%', ST~'Null%nterException', LEV~'INFO', CAT~'DefaultError%tion'
+1,M~'%Error:%', ST~'%NullPointerException%', LEV~'%INFO%', CAT~'%DefaultErrorSection%'
+1,M='', ST='Empty MSG and CAT', LEV='ERROR', CAT=''
+1,M='Empty ST', ST='', LEV='ERROR', CAT='EmptySt'
+1,M/'', ST~'This%is%a%multi%line%trace%', LEV/'', CAT/''
+0,M/'', ST='This will never happen, see?', LEV/'', CAT/''
+
+- - - SUMMARY REPORT - NORMAL SEVERITY - - -
+#,Search Facet
+4,M~'Test % Message%', ST/'', LEV/'', CAT/''
+
+- - - DETAILED REPORTS - - -
+4 Occurrences Of ERROR Messages
+Date / Time,001sc
+2016-12-29 04:01,1
+2016-12-29 04:02,1
+2016-12-29 04:03,1
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,1
+2016-12-29 04:09,0
+
+3 Occurrences Of WARN Messages
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,1
+2016-12-29 04:06,1
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,1
+
+1 Occurrences Of M='Test 1 Message', ST/'', LEV/'', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,1
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+1 Occurrences Of M~'Test 1 Message', ST/'oogly boogly', LEV/'', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,1
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+3 Occurrences Of M~'Test % Message', ST/'', LEV/'', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,1
+2016-12-29 04:06,1
+2016-12-29 04:07,1
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+4 Occurrences Of M~'Test % Message%', ST/'', LEV/'', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,1
+2016-12-29 04:06,1
+2016-12-29 04:07,1
+2016-12-29 04:08,1
+2016-12-29 04:09,0
+
+1 Occurrences Of M/'', ST='va ST 2 msg', LEV/'', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,1
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+2 Occurrences Of M/'', ST~'%ST % msg%', LEV/'', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,1
+2016-12-29 04:07,1
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+2 Occurrences Of M/'', ST/'', LEV/'', CAT='DefaultErrorSection'
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,1
+2016-12-29 04:05,1
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+2 Occurrences Of M/'', ST/'', LEV/'', CAT~'%D%E%S%n%'
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,1
+2016-12-29 04:05,1
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+4 Occurrences Of M/'', ST/'', LEV='ERROR', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,1
+2016-12-29 04:02,1
+2016-12-29 04:03,1
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,1
+2016-12-29 04:09,0
+
+4 Occurrences Of M/'', ST/'', LEV~'ERR%', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,1
+2016-12-29 04:02,1
+2016-12-29 04:03,1
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,1
+2016-12-29 04:09,0
+
+1 Occurrences Of M='Error:', ST='NullPointerException', LEV='INFO', CAT='DefaultErrorSection'
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,1
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+1 Occurrences Of M~'Error:%', ST~'Null%nterException', LEV~'INFO', CAT~'DefaultError%tion'
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,1
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+1 Occurrences Of M~'%Error:%', ST~'%NullPointerException%', LEV~'%INFO%', CAT~'%DefaultErrorSection%'
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,1
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+1 Occurrences Of M='', ST='Empty MSG and CAT', LEV='ERROR', CAT=''
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,1
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+1 Occurrences Of M='Empty ST', ST='', LEV='ERROR', CAT='EmptySt'
+Date / Time,001sc
+2016-12-29 04:01,0
+2016-12-29 04:02,0
+2016-12-29 04:03,1
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+1 Occurrences Of M/'', ST~'This%is%a%multi%line%trace%', LEV/'', CAT/''
+Date / Time,001sc
+2016-12-29 04:01,1
+2016-12-29 04:02,0
+2016-12-29 04:03,0
+2016-12-29 04:04,0
+2016-12-29 04:05,0
+2016-12-29 04:06,0
+2016-12-29 04:07,0
+2016-12-29 04:08,0
+2016-12-29 04:09,0
+
+0 Occurrences Of M/'', ST='This will never happen, see?', LEV/'', CAT/''
+  NOTE:  Date / Time / Server matrix not needed.
+

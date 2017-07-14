@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11.20151206">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Playing Nice Timer" enabled="true">
+        <stringProp name="ConstantTimer.delay">${__P(sample.delay,300)}</stringProp>
+      </ConstantTimer>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="JMeter Users" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">startnextloop</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${__P(loop.count,-1)}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(num.of.users,1)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(ramp.up,1)}</stringProp>
+        <longProp name="ThreadGroup.start_time">1389659328000</longProp>
+        <longProp name="ThreadGroup.end_time">1389659328000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__P(schedule.duration,2)}</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${__P(server,qwerty)}</stringProp>
+          <stringProp name="HTTPSampler.port">${__P(port,)}</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">${__P(protocol,)}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+          <stringProp name="CookieManager.policy">default</stringProp>
+          <stringProp name="CookieManager.implementation">org.apache.jmeter.protocol.http.control.HC4CookieHandler</stringProp>
+        </CookieManager>
+        <hashTree/>
+        <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+          <boolProp name="clearEachIteration">true</boolProp>
+          <boolProp name="useExpires">false</boolProp>
+        </CacheManager>
+        <hashTree/>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Prime counters" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="itemCounter" elementType="Argument">
+              <stringProp name="Argument.name">itemCounter</stringProp>
+              <stringProp name="Argument.value">1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="true"/>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Login and contribute an item via REST (Implicit Grant)" enabled="true">
+          <stringProp name="TestPlan.comments">Log in (via Implicit Grant), and contribute an item with an attachment via REST.</stringProp>
+        </GenericController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OAuth Implicit Grant Request " enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="client_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${__P(oauth.client.id,ERROR)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">client_id</stringProp>
+                </elementProp>
+                <elementProp name="redirect_uri" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">default</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">redirect_uri</stringProp>
+                </elementProp>
+                <elementProp name="response_type" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">token</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">response_type</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${__P(institution,ERROR)}/oauth/authorise</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Code" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">8</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Auth Query" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-338097291">${__P(oauth.client.app.confirmation,ERROR_OATH_CLIENT_APP_CONF)}</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="xsrf displayed?" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1063028532">name=&quot;__xsrf&quot; value=&quot;(.+?)&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Username field displayed?" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-48523690">input id=&quot;username&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Password field displayed?" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1329488591">input id=&quot;password&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract x" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">xsrf</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;__xsrf&quot; value=&quot;(.+?)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">WRONG</stringProp>
+              <stringProp name="RegexExtractor.match_number"></stringProp>
+            </RegexExtractor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="OAuth Implicit Grant Submit" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="client_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${__P(oauth.client.id,ERROR)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">client_id</stringProp>
+                </elementProp>
+                <elementProp name="redirect_uri" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">default</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">redirect_uri</stringProp>
+                </elementProp>
+                <elementProp name="response_type" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">token</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">response_type</stringProp>
+                </elementProp>
+                <elementProp name="event__" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">oal.authorise</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">event__</stringProp>
+                </elementProp>
+                <elementProp name="display" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">page</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">display</stringProp>
+                </elementProp>
+                <elementProp name="__xsrf" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${xsrf}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">__xsrf</stringProp>
+                </elementProp>
+                <elementProp name="username" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${__P(username,MISSINGUN)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">username</stringProp>
+                </elementProp>
+                <elementProp name="password" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${__P(password,MISSINGPW)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">password</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${__P(institution,ERROR)}/oauth/authorise</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Auth Code" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="50549">302</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Auth Header" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1915026117">Location: (.+?)access_token=(.+?)&amp;token_type=equella_api</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract access_token" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+              <stringProp name="RegexExtractor.refname">atoken</stringProp>
+              <stringProp name="RegexExtractor.regex">access_token=(.+?)&amp;token_type=equella_api</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">WRONG</stringProp>
+              <stringProp name="RegexExtractor.match_number"></stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="Prime results file" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">//Print headers to file
+// 
+String msg = &quot;uuid,version,URL,DB date for index,DB item thumb,DB item status,Should be in GV results,Missing GV thumbs,Content Types Skipped For GV Logic,Files without expected thumbnails&quot;;
+f = new FileOutputStream(&quot;./expected_search_results.csv&quot;, false);
+p = new PrintStream(f); 
+this.interpreter.setOut(p); 
+print(msg);  
+log.info(&quot;Logging to file: &quot;+msg);
+f.close();</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="REST API Controller" enabled="true">
+            <stringProp name="TestPlan.comments">Contribute an item with an attachment via REST.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">X-Authorization</stringProp>
+                  <stringProp name="Header.value">access_token=${atoken}</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="Poll Items" enabled="true">
+              <stringProp name="WhileController.condition">${__javaScript(&quot;${I_UUID}&quot; != &quot;&lt;EOF&gt;&quot;)}</stringProp>
+            </WhileController>
+            <hashTree>
+              <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="DB Item Dump" enabled="true">
+                <stringProp name="delimiter">,</stringProp>
+                <stringProp name="fileEncoding">UTF-8</stringProp>
+                <stringProp name="filename">${__P(db.item.dump,BadDbItemDumpCsvConfig.csv)}</stringProp>
+                <boolProp name="quotedData">true</boolProp>
+                <boolProp name="recycle">false</boolProp>
+                <stringProp name="shareMode">shareMode.thread</stringProp>
+                <boolProp name="stopThread">true</boolProp>
+                <stringProp name="variableNames">I_IDX_DATE,I_STATUS,I_UUID,I_VERSION,I_THUMB</stringProp>
+              </CSVDataSet>
+              <hashTree/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Poll Item metadata" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">${__P(institution,ERROR)}/api/item/${I_UUID}/${I_VERSION}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <boolProp name="HTTPSampler.monitor">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">log.info(&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Beginning Poll Item Metadata&quot;);
+//log.info(&quot;Ready to make the call for itemCounter (&quot;+vars.get(&quot;itemCounter&quot;)+&quot;):&quot;);
+//log.info(&quot;I_IDX_DATE: [&quot;+vars.get(&quot;I_IDX_DATE&quot;)+&quot;]&quot;);
+///log.info(&quot;I_STATUS: [&quot;+vars.get(&quot;I_STATUS&quot;)+&quot;]&quot;);
+//log.info(&quot;I_UUID: [&quot;+vars.get(&quot;I_UUID&quot;)+&quot;]&quot;);
+//log.info(&quot;I_VERSION: [&quot;+vars.get(&quot;I_VERSION&quot;)+&quot;]&quot;);
+//log.info(&quot;I_INSTITUTION_ID: [&quot;+vars.get(&quot;I_INSTITUTION_ID&quot;)+&quot;]&quot;);
+//log.info(&quot;I_THUMB: [&quot;+vars.get(&quot;I_THUMB&quot;)+&quot;]&quot;);</stringProp>
+                </BeanShellPreProcessor>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Code" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">8</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+vars.put(&quot;ITEM_STATUS&quot;, &quot;FAILURE: not set&quot;);
+try {
+boolean shouldBeInGv = false;
+String disallowedGvFileSuffixes = props.getProperty(&quot;disallowed.gv.file.suffixes&quot;).toUpperCase();
+JSONObject fileSuffixesNotForGvButPresent = new JSONObject();
+JSONArray filesWithoutExpectedThumbnails = new JSONArray();
+
+log.info(&quot;Finished making the call to: [&quot; + vars.get(&quot;I_UUID&quot;)+&quot;][&quot;+vars.get(&quot;I_VERSION&quot;)+&quot;]&quot;);
+String respData = prev.getResponseDataAsString();
+//log.info(&quot;Response data: [&quot;+respData+&quot;]&quot;);
+JSONObject itemData = new JSONObject(respData);
+//log.info(&quot;There are [&quot;+itemData.length()+&quot;] item objects in the json map.&quot;);
+String uuid = itemData.getString(&quot;uuid&quot;);
+int version = itemData.getInt(&quot;version&quot;);
+log.info(&quot;Looking at [&quot;+uuid+&quot;]/[&quot;+version+&quot;]...&quot;);
+
+JSONArray atts = itemData.getJSONArray(&quot;attachments&quot;);
+if(atts == null) {
+	//In standard results, but not in gallery results
+	log.info(&quot;There is no attachments object in the json map.&quot;);
+} else if(atts.length() &lt; 1) {
+	//In standard results, but not in gallery results
+	log.info(&quot;There are no attachments in the json map.&quot;);
+} else {
+	 //Search for attachments with thumbnails
+	 for(int i = 0; i &lt; atts.length(); i++) {
+	 	JSONObject att = atts.getJSONObject(i);
+	 	String type = att.getString(&quot;type&quot;);
+	 	
+	 	if((type != null) &amp;&amp; (type.length() != 0) &amp;&amp; type.equals(&quot;file&quot;)) {
+	 		String filename = att.getString(&quot;filename&quot;);
+	 		log.info(&quot;Current filename to be checked: [&quot;+filename+&quot;]&quot;);
+			String suffix = filename.substring(filename.lastIndexOf(&quot;.&quot;));
+	 		if(disallowedGvFileSuffixes.contains(suffix.toUpperCase())) {
+	 			log.info(&quot;This attachment&apos;s suffix [&quot;+suffix+&quot;] for [&quot;+filename+&quot;] is not valid for Gallery View.  Attachment will not make item be in GV.&quot;);
+	 			fileSuffixesNotForGvButPresent.accumulate(suffix, filename);
+	 		} else {
+	 			if(att.isNull(&quot;thumbnail&quot;)) {
+	 				log.info(&quot;Thumbnail is non-existant.  Attachment will not make item be in GV.&quot;);
+	 				filesWithoutExpectedThumbnails.put(filename);
+	 			} else {
+		 			String thumbnail = att.getString(&quot;thumbnail&quot;);
+		 			
+			 		if((thumbnail == null) || (thumbnail == &quot;&quot;) || (thumbnail.equals(&quot;suppress&quot;))) {
+		 				log.info(&quot;Thumbnail is either non-existant or suppressed [&quot;+thumbnail+&quot;].  Attachment will not make item be in GV.&quot;);
+			 		} else {
+			 			log.info(&quot;This attachment will make the item show up in GV. filename=[&quot;+filename+&quot;].&quot;);
+			 			shouldBeInGv = true;
+		 		}
+	 			}	
+	 		}
+	 	} else {
+	 		log.info(&quot;Attachment is not a file - will not make item be in GV. [&quot;+att.toString()+&quot;]&quot;);
+	 	}
+	 }
+}
+
+//Hand off to next sampler / BeanShell Processor
+if(shouldBeInGv) {
+	vars.put(&quot;X_SHOULD_BE_IN_GV&quot;, &quot;YES&quot;);
+} else {
+	vars.put(&quot;X_SHOULD_BE_IN_GV&quot;, &quot;NO&quot;);
+}
+vars.put(&quot;X_DISALLOWED_GV_FILE_SUFFIXES_PRESENT&quot;, fileSuffixesNotForGvButPresent.toString());
+vars.put(&quot;X_FILES_WITHOUT_EXPECTED_THUMBNAILS&quot;, filesWithoutExpectedThumbnails.join(&quot;,&quot;));
+
+vars.put(&quot;ITEM_STATUS&quot;, &quot;SUCCESS&quot;);
+log.info(&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Finished Poll Item Metadata&quot;);  
+} catch (Exception e) {
+	vars.put(&quot;ITEM_STATUS&quot;, &quot;FAILURE: &quot; + e.getMessage());
+	log.info(e);
+	log.warn(&quot;Response data: [&quot;+prev.getResponseDataAsString()+&quot;]&quot;);
+}
+</stringProp>
+                </BeanShellPostProcessor>
+                <hashTree/>
+                <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+                  <stringProp name="BeanShellAssertion.query">String stat = vars.get(&quot;ITEM_STATUS&quot;);
+if(!stat.equals(&quot;SUCCESS&quot;)) {
+	Failure=true ;
+	FailureMessage = stat;
+	print ( &quot;Processing failed in BeanShell due to :&quot; + stat);   // this goes to stdout
+	log.warn( &quot;Processing failed in BeanShell due to :&quot; + stat); // this goes to the JMeter log file	
+}
+</stringProp>
+                  <stringProp name="BeanShellAssertion.filename"></stringProp>
+                  <stringProp name="BeanShellAssertion.parameters"></stringProp>
+                  <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+                </BeanShellAssertion>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Poll Item filestore" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">${__P(institution,ERROR)}/api/item/${I_UUID}/${I_VERSION}/file</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <boolProp name="HTTPSampler.monitor">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">log.info(&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Beginning Poll Item Filestore&quot;);</stringProp>
+                </BeanShellPreProcessor>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Code" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">8</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">import org.json.*;
+vars.put(&quot;ITEM_STATUS&quot;, &quot;FAILURE: not set&quot;);
+try {
+boolean hasGvThumb = false;
+
+log.info(&quot;Finished making the call.&quot;);
+String respData = prev.getResponseDataAsString();
+log.info(&quot;Response data: [&quot;+respData+&quot;]&quot;);
+JSONObject itemData = new JSONObject(respData);
+
+JSONArray files = itemData.getJSONArray(&quot;files&quot;);
+if(files == null) {
+	log.info(&quot;There is no file map for this item.&quot;);
+} else if(files.length() &lt; 1) {
+	log.info(&quot;There are no files for this item.&quot;);
+} else {
+	//See if there is the _135_ GV thumb
+	for(int i = 0; i &lt; files.length(); i++) {
+	 	JSONObject file = files.getJSONObject(i);
+	 	String name = file.getString(&quot;name&quot;);
+	 	if(name.endsWith(&quot;_135_.jpeg&quot;)) {
+	 		hasGvThumb = true;
+	 		break;
+	 	}
+	}
+	log.info(&quot;Has GV (_135_) thumb?  &quot; + hasGvThumb);
+}
+
+String missingGvThumbs = &quot;NOT SET&quot;;
+if(vars.get(&quot;X_SHOULD_BE_IN_GV&quot;).equalsIgnoreCase(&quot;YES&quot;)) {
+	if(hasGvThumb) {
+		missingGvThumbs = &quot;HAS _135_ THUMB&quot;;
+	} else {
+		missingGvThumbs = &quot;MISSING _135_ THUMB&quot;;
+	}
+} else {
+	missingGvThumbs = &quot;N/A (has GV thumb -[&quot;+hasGvThumb+&quot;] but shouldn&apos;t be in GV search results)&quot;;
+}
+
+//Print to file
+//uuid, version, url (inst/uuid/version), db date for index, db item thumb, db item status, should be in GV,missing GV thumb, disallowed content
+String msg = vars.get(&quot;I_UUID&quot;)+&quot;,&quot;+vars.get(&quot;I_VERSION&quot;)+&quot;,&quot;+props.getProperty(&quot;protocol&quot;)+&quot;://&quot;+props.getProperty(&quot;server&quot;)+props.getProperty(&quot;institution&quot;)+&quot;/items/&quot;+vars.get(&quot;I_UUID&quot;)+&quot;/&quot;+vars.get(&quot;I_VERSION&quot;)+&quot;,\&quot;&quot;+vars.get(&quot;I_IDX_DATE&quot;)+&quot;\&quot;,&quot;+vars.get(&quot;I_THUMB&quot;)+&quot;,&quot;+vars.get(&quot;I_STATUS&quot;)+&quot;,&quot;+vars.get(&quot;X_SHOULD_BE_IN_GV&quot;)+&quot;,&quot;+missingGvThumbs+&quot;,&quot;+vars.get(&quot;X_DISALLOWED_GV_FILE_SUFFIXES_PRESENT&quot;)+&quot;,&quot;+vars.get(&quot;X_FILES_WITHOUT_EXPECTED_THUMBNAILS&quot;);
+f = new FileOutputStream(&quot;./expected_search_results.csv&quot;, true);
+p = new PrintStream(f); 
+this.interpreter.setOut(p); 
+print(msg);  
+log.info(&quot;Logging to file: &quot;+msg);
+f.close();
+
+vars.put(&quot;ITEM_STATUS&quot;, &quot;SUCCESS&quot;);
+log.info(&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Finished Poll Item filestore&quot;);  
+vars.put(&quot;itemCounter&quot;, (Integer.parseInt(vars.get(&quot;itemCounter&quot;))+1)+&quot;&quot;);
+} catch (Exception e) {
+	vars.put(&quot;ITEM_STATUS&quot;, &quot;FAILURE: &quot; + e.getMessage());
+	log.info(e);
+	log.warn(&quot;Response data: [&quot;+prev.getResponseDataAsString()+&quot;]&quot;);
+}
+</stringProp>
+                </BeanShellPostProcessor>
+                <hashTree/>
+                <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+                  <stringProp name="BeanShellAssertion.query">String stat = vars.get(&quot;ITEM_STATUS&quot;);
+if(!stat.equals(&quot;SUCCESS&quot;)) {
+	Failure=true ;
+	FailureMessage = stat;
+	print ( &quot;Processing failed in BeanShell due to :&quot; + stat);   // this goes to stdout
+	log.warn( &quot;Processing failed in BeanShell due to :&quot; + stat); // this goes to the JMeter log file	
+}
+</stringProp>
+                  <stringProp name="BeanShellAssertion.filename"></stringProp>
+                  <stringProp name="BeanShellAssertion.parameters"></stringProp>
+                  <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+                </BeanShellAssertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <url>true</url>
+              <sampleCount>true</sampleCount>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

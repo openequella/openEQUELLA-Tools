@@ -1,0 +1,12 @@
+Message: And see Test all Messages
+Date: 2016-12-29
+Timestamp: 04:09:47,752
+Slot: 04:09
+Level: WARN
+Category: ItemAllService
+Server: 001sc
+Context: 
+Log Filepath: nodeX
+Stack Trace: 
+
+

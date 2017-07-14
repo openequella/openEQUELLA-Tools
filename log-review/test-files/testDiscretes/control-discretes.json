@@ -1,0 +1,94 @@
+{
+"logDirectory":"....../log-review/test-files/testDiscretes",
+"outputDirectory":"...../log-review/",
+"outputBase":"discreteUnitTests",
+"granularity":"M",
+"trimGuide":"",
+"roundName":"",
+"searchFacets":[
+	{
+		"message": {"type": "equals", "query": "Test 1 Message"},
+		"severity":"warning"
+	},
+	{
+		"message": {"type": "like", "query": "Test 1 Message"},
+		"stack-trace": {"type": "ignore", "query": "oogly boogly"},
+		"severity":"warning"
+	},
+	{
+		"message": {"type": "like", "query": "Test % Message"},
+		"severity":"error"
+	},
+	{
+		"message": {"type": "like", "query": "Test % Message%"},
+		"severity":"normal"
+	},
+	{
+		"stack-trace": {"type": "equals", "query": "va ST 2 msg"},
+		"severity":"warning"
+	},
+	{
+		"stack-trace": {"type": "like", "query": "%ST % msg%"},
+		"severity":"warning"
+	},
+	{
+		"category": {"type": "equals", "query": "DefaultErrorSection"},
+		"severity":"warning"
+	},
+	{
+		"category": {"type": "like", "query": "%D%E%S%n%"},
+		"severity":"warning"
+	},
+	{
+		"level": {"type": "equals", "query": "ERROR"},
+		"severity":"warning"
+	},
+	{
+		"level": {"type": "like", "query": "ERR%"},
+		"severity":"warning"
+	},
+	{
+		"message": {"type": "equals", "query": "Error:"},
+		"stack-trace": {"type": "equals", "query": "NullPointerException"},
+		"level": {"type": "equals", "query": "INFO"},
+		"category": {"type": "equals", "query": "DefaultErrorSection"},
+		"severity":"warning"
+	},
+	{
+		"message": {"type": "like", "query": "Error:%"},
+		"stack-trace": {"type": "like", "query": "Null%nterException"},
+		"level": {"type": "like", "query": "INFO"},
+		"category": {"type": "like", "query": "DefaultError%tion"},
+		"severity":"warning"
+	},
+	{
+		"message": {"type": "like", "query": "%Error:%"},
+		"stack-trace": {"type": "like", "query": "%NullPointerException%"},
+		"level": {"type": "like", "query": "%INFO%"},
+		"category": {"type": "like", "query": "%DefaultErrorSection%"},
+		"severity":"warning"
+	},
+	{
+		"message": {"type": "equals", "query": ""},
+		"stack-trace": {"type": "equals", "query": "Empty MSG and CAT"},
+		"level": {"type": "equals", "query": "ERROR"},
+		"category": {"type": "equals", "query": ""},
+		"severity":"warning"
+	},
+	{
+		"message": {"type": "equals", "query": "Empty ST"},
+		"stack-trace": {"type": "equals", "query": ""},
+		"level": {"type": "equals", "query": "ERROR"},
+		"category": {"type": "equals", "query": "EmptySt"},
+		"severity":"warning"
+	},
+	{
+		"stack-trace": {"type": "like", "query": "This%is%a%multi%line%trace%"},
+		"severity":"warning"
+	},
+	{
+		"stack-trace": {"type": "equals", "query": "This will never happen, see?"},
+		"severity":"warning"
+	}
+	]
+}

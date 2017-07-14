@@ -1,0 +1,42 @@
+{
+"logDirectory":"......./logs/",
+"outputDirectory":"......../logs/",
+"outputBase":"my_log_output",
+"granularity":"D",
+"trimGuide":"",
+"roundName":"",
+"searchFacets":[
+	{
+		"_comment": "Example Zookeeper log message",
+		"message": {"type": "equals", "query": "State change: SUSPENDED"},
+		"stack-trace": {"type": "equals", "query": ""},
+		"level": {"type": "equals", "query": "INFO"},
+		"category": {"type": "equals", "query": "ConnectionStateManager"},
+		"severity":"error"
+	},
+	{
+		"_comment": "Example Zookeeper log message",
+		"message": {"type": "equals", "query": "State change: LOST"},
+		"stack-trace": {"type": "equals", "query": ""},
+		"level": {"type": "equals", "query": "INFO"},
+		"category": {"type": "equals", "query": "ConnectionStateManager"},
+		"severity":"error"
+	},
+	{
+		"_comment": "Example Zookeeper log message",
+		"message": {"type": "equals", "query": "State change: RECONNECTED"},
+		"stack-trace": {"type": "equals", "query": ""},
+		"level": {"type": "equals", "query": "INFO"},
+		"category": {"type": "equals", "query": "ConnectionStateManager"},
+		"severity":"info"
+	},
+	{
+		"_comment": "Testing like.",
+		"message": {"type": "like", "query": "test words %"},
+		"stack-trace": {"type": "equals", "query": ""},
+		"level": {"type": "equals", "query": "INFO"},
+		"category": {"type": "equals", "query": "Examples..."},
+		"severity":"info"
+	}
+	]
+}
