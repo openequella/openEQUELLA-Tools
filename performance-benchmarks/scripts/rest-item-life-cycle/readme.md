@@ -1,7 +1,3 @@
-# Rest Item Life Cycle
-You'll need the following assets copied into this folder to run:
-* eqTestImageSmall.JPG
-* eqTestPdf.PDF
-* eqTestTxt.TXT
+# REST Item Lifecycle
 
-You'll also need to add the org.json code into the JMeter classpath.
+Please review the documentation [here](https://github.com/equella/equella.github.io/blob/master/equella-tools/performance-benchmarks-rest-item-lifecycle.md).
