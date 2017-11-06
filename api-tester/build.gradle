@@ -1,0 +1,29 @@
+repositories {
+    maven {
+        url "https://mvnrepository.com/"
+    }
+    mavenCentral()
+}
+
+apply plugin:'java'
+
+dependencies {
+    compile group: 'org.json', name: 'json', version: '20170516'
+    compile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.3'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient-cache', version: '4.5.3'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.0'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.0'
+	compile group: 'org.apache.axis', name: 'axis', version: '1.4'
+	compile group: 'org.apache.axis', name: 'axis-jaxrpc', version: '1.4'
+	compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.wsdl4j', version: '1.6.3_1'
+	compile group: 'commons-discovery', name: 'commons-discovery', version: '0.5'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'target'
+       }
+    }
+}
