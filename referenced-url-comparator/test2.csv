@@ -1,0 +1,5 @@
+"url","status","success","tries","message"
+"mydir/file.swf","0","1","1","java.lang.IllegalArgumentException: Invalid URL"
+"http://www.google.com","200","1","0",""
+"http://www.noaa.gov","211","1","0",""
+"http://www.noaa.gov?q=2","210","1","0",""
