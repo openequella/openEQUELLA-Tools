@@ -1,4 +1,4 @@
-# Equella-Tools
+# openEQUELLA-Tools
 
 These tools have been through the initial stage of being open sourced, and are available for use.  They are as-is, and should be validated before being used against an Equella install with live data on it.  Validation efforts include:
 * Dependency review
