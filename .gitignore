@@ -1,0 +1,16 @@
+*.pyc
+*.pmd
+*.iml
+.idea
+target/
+build.conf
+generated.keystore
+.classpath
+.settings
+.project
+.cache-main
+.cache-tests
+.code-workspace
+# Remove this one day
+Source/Plugins/Kaltura
+server.xml
