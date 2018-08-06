@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} %-5level - %msg%n" />
+		</Console>
+		<File name="Audit" fileName="eq-mig-audit.log">
+			<PatternLayout>
+				<Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+			</PatternLayout>
+		</File>
+		<File name="LogFile" fileName="eq-mig-log.log">
+			<PatternLayout>
+				<Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>
+			</PatternLayout>
+		</File>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.apereo.openequella.tools.toolbox.api.KalturaUtils" level="info">
+			<AppenderRef ref="Audit"/>
+		</Logger>
+		<Logger name="org.apereo.openequella.tools.toolbox.Driver" level="debug">
+			<AppenderRef ref="Audit"/>
+		</Logger>
+		<Root level="DEBUG">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="LogFile" />
+		</Root>
+	</Loggers>
+</Configuration>
