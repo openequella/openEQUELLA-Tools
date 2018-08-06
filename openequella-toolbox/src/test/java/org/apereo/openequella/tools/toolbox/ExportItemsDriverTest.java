@@ -18,6 +18,9 @@ package org.apereo.openequella.tools.toolbox;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Properties;
+import java.util.UUID;
+
 import org.apereo.openequella.tools.toolbox.utils.EquellaItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,8 +50,39 @@ public class ExportItemsDriverTest {
 		json.put("attachments", atts);
 		EquellaItem ei = new EquellaItem();
 		ei.setJson(json);
+		ei.setUuid("ec48a0e1-9643-4d50-840a-db26fd9fa15a");
+		ei.setVersion(1);
 		ExportItemsDriver eid = new ExportItemsDriver();
-		assertEquals("A title of a kaltura link,myfile.pdf", eid.parseAttachmentFilenames(ei));
+		Properties props = new Properties();
+		props.put(Config.EXPORT_ITEMS_ATTACHMENT_PATH_TEMPLATE, "/Attachments/@HASH/@UUID/@VERSION/@FILENAME");
+		assertEquals("/Attachments/40/ec48a0e1-9643-4d50-840a-db26fd9fa15a/1/myfile.pdf", eid.parseAttachmentFilenames(ei, new Config(props)));
+		
+	}
+	
+	@Test 
+	public void testFindFirstKalturaIdInAttachments() {
+		JSONObject json = new JSONObject();
+		JSONObject att1 = new JSONObject();
+		att1.put("type", "kaltura");
+		att1.put("description", "This is an interesting kaltura link description");
+		att1.put("mediaId", "0_12345");
+		JSONObject att2 = new JSONObject();
+		att2.put("type", "file");
+		att2.put("description", "This is an interesting file description");
+		att2.put("filename", "myfile.pdf");
+		JSONObject att3 = new JSONObject();
+		att3.put("type", "kaltura");
+		att3.put("description", "This is an interesting kaltura link description");
+		att3.put("mediaId", "0_98765");
+		JSONArray atts = new JSONArray();
+		atts.put(att1);
+		atts.put(att2);
+		atts.put(att3);
+		json.put("attachments", atts);
+		EquellaItem ei = new EquellaItem();
+		ei.setJson(json);
+		ExportItemsDriver eid = new ExportItemsDriver();
+		assertEquals("0_12345", eid.findFirstKalturaIdInAttachments(ei));
 		
 	}
 }

@@ -54,6 +54,7 @@ public class OpenEquellaRestUtils {
 	public static final String KEY_ATT_SIZE = "size";
 	public static final String KEY_ATT_LINKS = "links";
 	public static final String KEY_ATT_LINKS_VIEW = "view";
+	public static final String KEY_ATT_MEDIA_ID = "mediaId";
 
 	public static final String VAL_ATT_TYPE_KALTURA = "kaltura";
 	public static final String VAL_ATT_TYPE_FILE = "file";
@@ -263,8 +264,7 @@ public class OpenEquellaRestUtils {
 				ei.setCreatedDate(Config.DATE_FORMAT_OEQ_API.parse(confirmAndGatherString(resourceObj, "createdDate")));
 				ei.setJson(resourceObj);
 
-				LOGGER.info(
-							"CACHED {}/{}: [{}] - {}", ei.getUuid(), ei.getVersion(), ei.getName(), resourceObj);
+				LOGGER.info("CACHED {}", ei.getSignature());
 				cachedItems.add(ei);
 			}
 		} else {

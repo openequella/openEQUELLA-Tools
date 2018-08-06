@@ -55,6 +55,8 @@ public class Config {
 	public static final String EXPORT_ITEMS_OUTPUT_FILE = "export.items.output";
 	public static final String EXPORT_ITEMS_COLUMN_FORMAT = "export.items.columnFormat";
 	public static final String EXPORT_ITEMS_FILTER_DATE_CREATED = "export.items.filter.dateCreated";
+	public static final String EXPORT_ITEMS_ATTACHMENT_PATH_TEMPLATE = "export.items.attachment.path.template";
+	
 		
 	// general
 	public static final String OEQ_URL = "oeq.url";
@@ -72,13 +74,18 @@ public class Config {
 	private boolean validConfig = true;
 	private String filepath;
 	
+	// Meant for testing purposes
+	public Config(Properties props) {
+		store = props;
+	}
+	
 	public Config(String path) {
 		filepath = path;
 		try (InputStream input = new FileInputStream(path)) {
 			LOGGER.info("Using [{}] as the configuration file.", path);
 			store = new Properties();
 			store.load(input);
-			
+
 			checkConfig(TOOLBOX_FUNCTION, true, true);
 			if(validConfig) {
 				switch  (ToolboxFunction.valueOf(getConfig(TOOLBOX_FUNCTION))) {
@@ -165,6 +172,7 @@ public class Config {
 			}
 		}
 		checkConfig(EXPORT_ITEMS_COLUMN_FORMAT, true, true);
+		checkConfig(EXPORT_ITEMS_ATTACHMENT_PATH_TEMPLATE, true, true);
 	}
 	
 	private void checkConfig(String key, boolean displayValue, boolean required) {
