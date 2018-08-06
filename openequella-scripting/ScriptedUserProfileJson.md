@@ -1,4 +1,4 @@
-#Scripted User Profile JSON
+# Scripted User Profile JSON
 Currently, a given user cannot view their own user profile via the API.  Until that functionality is implemented in the codebase, the following method can be used:
 
 1. Setup a collection with a display template that is scripted with the following:
