@@ -32,6 +32,7 @@ public class EquellaItem {
 	private String kalturaTags;
 	private String createdDateStr;
 	private Date createdDate;
+	private String primaryFileType;
 	
 	public String getKalturaMediaId() {
 		return kalturaMediaId;
@@ -101,6 +102,13 @@ public class EquellaItem {
 	}
 	public void setCreatedDate(Date date) {
 		createdDate = date;
+	}
+	public void setPrimaryFileType(String suffix) {
+		primaryFileType = suffix;
+	}
+	
+	public String getPrimaryFileType() {
+		return primaryFileType;
 	}
 	
 }

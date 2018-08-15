@@ -19,7 +19,6 @@ package org.apereo.openequella.tools.toolbox;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Properties;
-import java.util.UUID;
 
 import org.apereo.openequella.tools.toolbox.utils.EquellaItem;
 import org.json.JSONArray;

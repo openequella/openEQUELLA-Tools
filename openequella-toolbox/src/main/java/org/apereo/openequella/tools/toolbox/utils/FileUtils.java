@@ -32,6 +32,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apereo.openequella.tools.toolbox.Config;
 
 public class FileUtils {
 	private static Logger LOGGER = LogManager.getLogger(FileUtils.class);
@@ -122,5 +123,32 @@ public class FileUtils {
 			LOGGER.warn("No file/directory exists at location: {}", filename);
 		}
 		return false;
+	}
+	
+	
+	/**
+	 * Checks if the filename ends with a known suffix, and returns the suffix (in uppercase) 
+	 * 
+	 * Currently supports the Audio and Video suffix configs
+	 * 
+	 * @param filename
+	 * @return the suffix in uppercase, null if not a known suffix.
+	 * @throws Exception
+	 */
+	public static String extractSuffix(Config config, String filename) {
+		List<String> audioSuffixes = config.getConfigAsList(Config.OEQ_SEARCH_ATT_SUFFIXES_AUDIO);
+		for(String validSuffix : audioSuffixes) {
+			if(filename.toUpperCase().endsWith(validSuffix.trim())) {
+				return validSuffix.trim();
+			}
+		}
+		
+		List<String> videoSuffixes = config.getConfigAsList(Config.OEQ_SEARCH_ATT_SUFFIXES_VIDEO);
+		for(String validSuffix : videoSuffixes) {
+			if(filename.toUpperCase().endsWith(validSuffix.trim())) {
+				return validSuffix.trim();
+			}
+		}	
+		return null;
 	}
 }

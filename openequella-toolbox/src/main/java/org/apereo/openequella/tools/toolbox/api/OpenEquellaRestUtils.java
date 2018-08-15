@@ -336,6 +336,7 @@ public class OpenEquellaRestUtils {
 		int bestFitAttIndex = -1;
 		String bestFitAttLink = "";
 		String bestFitAttFilename = "";
+		String bestFitFileSuffix = "";
 		long bestFitAttFilesize = -1;
 		JSONArray atts = null;
 		
@@ -357,11 +358,16 @@ public class OpenEquellaRestUtils {
 								ei.getSignature(), config.getConfig(Config.OEQ_SEARCH_ATT_DESC), att);
 						continue;
 					}
-
 					String filename = confirmAndGatherString(att, KEY_ATT_FILENAME);
-					if (!filename.toUpperCase().endsWith(".MP4") && !filename.toUpperCase().endsWith(".MOV")) {
+					String validSuffix = FileUtils.extractSuffix(config, filename);
+					
+					if (validSuffix == null) {
 						LOGGER.info(
-								"{} - Not an attachment to migrate - filename doesn't end with [.MP4] or [.MOV]: {}", ei.getSignature(), att);
+								"{} - Not an attachment to migrate - filename doesn't end with one of the following suffixes [{}] OR [{}]: {}", 
+								ei.getSignature(), 
+								config.getConfig(Config.OEQ_SEARCH_ATT_SUFFIXES_AUDIO), 
+								config.getConfig(Config.OEQ_SEARCH_ATT_SUFFIXES_VIDEO), 
+								att);
 						continue;
 					}
 
@@ -377,6 +383,7 @@ public class OpenEquellaRestUtils {
 							KEY_ATT_LINKS_VIEW);
 					bestFitAttFilesize = size;
 					bestFitAttFilename = filename;
+					bestFitFileSuffix = validSuffix;
 				} catch (Exception e) {
 					LOGGER.info("{} - Unable to check attachment - {}", ei.getSignature(), e.getMessage());
 				}
@@ -398,6 +405,7 @@ public class OpenEquellaRestUtils {
 			if (FileUtils.downloadWithProgress(targetFile, bestFitAttLink, accessToken, Integer.parseInt(config.getConfig(Config.GENERAL_DOWNLOAD_CHATTER)),
 					bestFitAttFilesize)) {
 				ei.setFilepath(targetFile.getAbsolutePath());
+				ei.setPrimaryFileType(bestFitFileSuffix);
 				return true;
 			}
 

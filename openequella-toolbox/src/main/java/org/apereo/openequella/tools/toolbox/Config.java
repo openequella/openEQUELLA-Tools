@@ -21,6 +21,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +51,8 @@ public class Config {
 	public static final String KAL_SERVICE_URL = "migrate-to-kaltura.kal.service.url";
 	public static final String KAL_CATEGORIES = "migrate-to-kaltura.kal.categories";
 	public static final String OEQ_SEARCH_ATT_DESC = "migrate-to-kaltura.oeq.search.attachment.description";
+	public static final String OEQ_SEARCH_ATT_SUFFIXES_AUDIO = "migrate-to-kaltura.oeq.search.attachment.suffixes.audio";
+	public static final String OEQ_SEARCH_ATT_SUFFIXES_VIDEO = "migrate-to-kaltura.oeq.search.attachment.suffixes.video";
 	public static final String OEQ_SEARCH_KAL_TAGS_XPATH = "migrate-to-kaltura.oeq.search.kal.tags.xpath";
 	public static final String OEQ_KAL_ID = "migrate-to-kaltura.oeq.kal.id";
 	public static final String GENERAL_MAX_ITEMS_TO_MIGRATE = "migrate-to-kaltura.general.max.items.to.migrate";
@@ -67,12 +73,14 @@ public class Config {
 	public static final String GENERAL_DOWNLOAD_FOLDER = "general.download.folder";
 	public static final String GENERAL_DOWNLOAD_CHATTER = "general.download.chatter";
 	public static final String OEQ_SEARCH_API_REQUESTED_LENGTH = "oeq.search.api.requested.length";
-	
+
 	private static Logger LOGGER = LogManager.getLogger(Config.class);
 	
 	private Properties store;
 	private boolean validConfig = true;
 	private String filepath;
+	
+	private Map<String, List<String>> convertedCsvToLists = new HashMap<>();
 	
 	// Meant for testing purposes
 	public Config(Properties props) {
@@ -122,7 +130,6 @@ public class Config {
 		checkConfig(OEQ_OAUTH_CLIENT_ID, true, true);
 		checkConfig(OEQ_OAUTH_CLIENT_SECRET, false, true);
 		checkConfig(OEQ_SEARCH_API, true, true);
-		checkConfig(OEQ_SEARCH_API, true, true);
 		checkConfig(GENERAL_OS_SLASH, true, true);
 		checkConfig(GENERAL_DOWNLOAD_FOLDER, true, true);
 		checkConfig(GENERAL_DOWNLOAD_CHATTER, true, true);		
@@ -150,6 +157,7 @@ public class Config {
 		checkConfig(OEQ_SEARCH_KAL_TAGS_XPATH, true, true);
 		checkConfig(OEQ_SEARCH_ATT_DESC, true, true);
 		checkConfig(OEQ_KAL_ID, true, true);
+		checkMigrateToKalturaAttachmentSuffixes();
 		checkConfig(GENERAL_MAX_ITEMS_TO_MIGRATE, true, false);
 		if(hasConfig(GENERAL_MAX_ITEMS_TO_MIGRATE)) {
 			checkInt(GENERAL_MAX_ITEMS_TO_MIGRATE, true);
@@ -162,7 +170,7 @@ public class Config {
 			}
 		}
 	}
-	
+
 	private void checkConfigsExportItems() {
 		checkConfig(EXPORT_ITEMS_OUTPUT_FILE, true, true);
 		if(validConfig) {
@@ -205,6 +213,10 @@ public class Config {
 		return store.getProperty(key);
 	}
 	
+	public List<String> getConfigAsList(String key) {
+		return convertedCsvToLists.get(key);
+	}
+	
 	/**
 	 *  Assumes checkInt(key) and isValidConfig() has already been called
 	 */
@@ -214,5 +226,43 @@ public class Config {
 	
 	public boolean hasConfig(String key) {
 		return store.containsKey(key);
+	}
+	
+	public void checkMigrateToKalturaAttachmentSuffixes() {
+		checkConfig(OEQ_SEARCH_ATT_SUFFIXES_AUDIO, true, true);
+		checkConfig(OEQ_SEARCH_ATT_SUFFIXES_VIDEO, true, true);
+		
+		if(validConfig) {
+			// The script needs to know what type of media the attachment to upload is.  
+			// To ensure an unambiguous decision, the audio suffixes and video suffixes must be unique.
+			
+			List<String> audios = Arrays.asList(getConfig(OEQ_SEARCH_ATT_SUFFIXES_AUDIO).toUpperCase().split(","));
+			List<String> videos = Arrays.asList(getConfig(OEQ_SEARCH_ATT_SUFFIXES_VIDEO).toUpperCase().split(","));
+			
+			if(audios.size() != 0 && videos.size() != 0) {
+				for(String a : audios) {
+					if(a.trim().length() != 0) {
+						if(videos.contains(a.trim())) {
+							LOGGER.info("{} and {} must have distinct (case insensitive) sets.  Found [{}] in [{}].", OEQ_SEARCH_ATT_SUFFIXES_AUDIO, OEQ_SEARCH_ATT_SUFFIXES_VIDEO, a, getConfig(OEQ_SEARCH_ATT_SUFFIXES_VIDEO));
+							validConfig = false;
+							return;
+						}
+					}
+				}
+				
+				for(String v : videos) {
+					if(v.trim().length() != 0) {
+						if(audios.contains(v.trim())) {
+							LOGGER.info("{} and {} must have distinct (case insensitive) sets.  Found [{}] in [{}].", OEQ_SEARCH_ATT_SUFFIXES_AUDIO, OEQ_SEARCH_ATT_SUFFIXES_VIDEO, v, getConfig(OEQ_SEARCH_ATT_SUFFIXES_AUDIO));
+							validConfig = false;
+							return;
+						}
+					}
+				}
+			}
+			
+			convertedCsvToLists.put(OEQ_SEARCH_ATT_SUFFIXES_AUDIO, audios);
+			convertedCsvToLists.put(OEQ_SEARCH_ATT_SUFFIXES_VIDEO, videos);
+		}
 	}
 }
