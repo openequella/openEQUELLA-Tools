@@ -82,7 +82,7 @@ private static List<EquellaItem> itemsToProcess;
 		kalturaUploadInProgress = true;
 		if(oeru.downloadAttachmentForKaltura(eqResource)) {	
 			// Add the video to Kaltura
-			ku.addVideo(eqResource, new OnCompletion<MediaEntry>() {
+			ku.addMedia(eqResource, new OnCompletion<MediaEntry>() {
 				
 				@Override
 				public void onComplete(MediaEntry result) {

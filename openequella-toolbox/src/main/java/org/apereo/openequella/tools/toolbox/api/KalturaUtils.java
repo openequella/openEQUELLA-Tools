@@ -73,7 +73,7 @@ public class KalturaUtils {
 		}	
 	}
 	
-	public void addVideo(EquellaItem eItem, final OnCompletion<MediaEntry> onCompletion)
+	public void addMedia(EquellaItem eItem, final OnCompletion<MediaEntry> onCompletion)
 	{
 		LOGGER.info("{} - Processing resource:  ", eItem.getSignature());
 		MediaEntry entry = new MediaEntry();
@@ -81,7 +81,14 @@ public class KalturaUtils {
 		entry.setDescription(eItem.getDescription());
 		entry.setTags(eItem.getKalturaTags());
 		entry.setCategories(appConfig.getConfig(Config.KAL_CATEGORIES));
-		entry.setMediaType(MediaType.VIDEO);
+		if(appConfig.getConfigAsList(Config.OEQ_SEARCH_ATT_SUFFIXES_AUDIO).contains(eItem.getPrimaryFileType())) {
+			entry.setMediaType(MediaType.AUDIO);
+		} else {
+			// Precondition: the check of the file suffix being in the audio or video CSV has already happened.
+			// Assumes video type
+			entry.setMediaType(MediaType.VIDEO);
+		}
+		
 		entry.setReferenceId(getUniqueString());
 		
 		File fileToUpload = new File(eItem.getFilepath());
