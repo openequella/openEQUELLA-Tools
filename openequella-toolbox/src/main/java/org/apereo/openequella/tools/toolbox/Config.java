@@ -180,6 +180,7 @@ public class Config {
 			}
 		}
 		checkConfig(EXPORT_ITEMS_COLUMN_FORMAT, true, true);
+		checkConfig(EXPORT_ITEMS_FILTER_DATE_CREATED, true, false);
 		checkConfig(EXPORT_ITEMS_ATTACHMENT_PATH_TEMPLATE, true, true);
 	}
 	
@@ -188,7 +189,8 @@ public class Config {
 			String value = displayValue ? store.getProperty(key) : "****";
 			LOGGER.info("Found property [{}]=[{}].", key, value);
 		} else {
-			LOGGER.info("Unable to find required property [{}] in {}.", key, filepath);
+			String state = required ? "required" : "optional";
+			LOGGER.info("Unable to find {} property [{}] in {}.", state, key, filepath);
 			if(required) {
 				validConfig = false;
 			}
