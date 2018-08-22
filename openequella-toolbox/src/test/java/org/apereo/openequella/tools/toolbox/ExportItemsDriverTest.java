@@ -17,7 +17,10 @@
 package org.apereo.openequella.tools.toolbox;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apereo.openequella.tools.toolbox.utils.EquellaItem;
@@ -82,6 +85,44 @@ public class ExportItemsDriverTest {
 		ei.setJson(json);
 		ExportItemsDriver eid = new ExportItemsDriver();
 		assertEquals("0_12345", eid.findFirstKalturaIdInAttachments(ei));
+		
+	}
+	
+	@Test 
+	public void testBuildRecordMultipleValuesTogether() {
+		EquellaItem ei = new EquellaItem();
+		ei.setMetadata("<xml><metadata><general>asdf</general><keywords><keyword>k1</keyword><keyword>k2</keyword></keywords></metadata></xml>");
+		
+		List<String> headers = new ArrayList<>();
+		headers.add("metadata/keywords/keyword");
+		
+		ExportItemsDriver eid = new ExportItemsDriver();
+		try {
+			List<String> result = eid.buildRecord(headers, ei, null);
+			assertEquals(1, result.size());
+			assertEquals("k1,k2", result.get(0));
+		} catch (Exception e) {
+			fail("buildRecord failed with: " + e.getMessage());
+		}
+		
+	}
+	
+	@Test 
+	public void testBuildRecordMultipleValuesApart() {
+		EquellaItem ei = new EquellaItem();
+		ei.setMetadata("<xml><metadata><keywords><keyword>k1</keyword></keywords><general>asdf</general><keywords><keyword>k2</keyword><keyword>k3</keyword></keywords></metadata></xml>");
+		
+		List<String> headers = new ArrayList<>();
+		headers.add("metadata/keywords/keyword");
+		
+		ExportItemsDriver eid = new ExportItemsDriver();
+		try {
+			List<String> result = eid.buildRecord(headers, ei, null);
+			assertEquals(1, result.size());
+			assertEquals("k1,k2,k3", result.get(0));
+		} catch (Exception e) {
+			fail("buildRecord failed with: " + e.getMessage());
+		}
 		
 	}
 }
