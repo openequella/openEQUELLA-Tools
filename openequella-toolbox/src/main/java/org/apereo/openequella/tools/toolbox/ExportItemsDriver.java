@@ -42,11 +42,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apereo.openequella.tools.toolbox.api.OpenEquellaRestUtils;
 import org.apereo.openequella.tools.toolbox.utils.EquellaItem;
-import org.apereo.openequella.tools.toolbox.utils.MigrationUtils;
 import org.apereo.openequella.tools.toolbox.utils.sorts.SortOpenEquellaItemByName;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 public class ExportItemsDriver {
@@ -168,7 +168,7 @@ public class ExportItemsDriver {
 	
 	// While MigrationUtils.findFirstOccurrenceInXml() is similar, this combines the 'reserved
 	// keywords' with a single invocation of parsing the XML.
-	private List<String> buildRecord(List<String> headers, EquellaItem ei, Config config) throws Exception {
+	public List<String> buildRecord(List<String> headers, EquellaItem ei, Config config) throws Exception {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(new InputSource(new StringReader(ei.getMetadata())));
@@ -192,8 +192,14 @@ public class ExportItemsDriver {
 			} else {
 				//Assume it's a metadata path
 				try {
-					XPathExpression expr = xpath.compile("/xml/" + header + "/text()");
-					record.add((String) expr.evaluate(doc, XPathConstants.STRING)); 
+					XPathExpression expr = xpath.compile("/xml/" + header);
+					List<String> results = new ArrayList<>();
+					Object xmlResults = expr.evaluate(doc, XPathConstants.NODESET);
+					NodeList nodeResults = (NodeList) xmlResults;
+					for(int i = 0; i < nodeResults.getLength(); i++) {
+						results.add(nodeResults.item(i).getTextContent());
+					}
+					record.add(String.join(",", results)); 
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new Exception("Unable to parse column format xpath "+header); 
