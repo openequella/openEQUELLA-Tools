@@ -9,4 +9,4 @@ Search openEQUELLA for items with a given criteria.  For each item found, downlo
 Search openEQUELLA for items with a given criteria.  For each item found, export the metadata in a given format.
 
 # License
-Apache v2
+Apache v2 (Need to check the Kaltura integration license...)
