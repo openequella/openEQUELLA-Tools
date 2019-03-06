@@ -25,12 +25,13 @@ public class Driver {
 	private Logger logger = LogManager.getLogger(Driver.class);
     public static void main(String[] args) {
     	Driver d = new Driver();
-    	d.runRestTests();
-    	d.runSoapTests();
+    	d.runScriptTraining();
+    	//d.runRestTests();
+    	//d.runSoapTests();
     }
-    
-    public void runRestTests() {
-    	try {
+
+	public void runRestTests() {
+		try {
 			RestActions ra = new RestActions(System.getProperty("equellaUrl"),
 					System.getProperty("equellaRestClientId"),
 					System.getProperty("equellaRestClientSecret"));
@@ -48,7 +49,30 @@ public class Driver {
 		} catch (Exception e) {
 			logger.error("Failed to run REST tests.  Reason="+e.getMessage());
 		}
-    }
+	}
+
+	public void runScriptTraining() {
+		try {
+			RestActions ra = new RestActions(System.getProperty("equellaUrl"),
+					System.getProperty("equellaRestClientId"),
+					System.getProperty("equellaRestClientSecret"));
+			logger.info("Running against: "+System.getProperty("equellaUrl"));
+			ra.gatherAccessToken();
+			//ra.getItem("d44bd980-be74-419f-8660-13fc99e2a970", "1");
+			//ra.updateItem("dd6156bb-161d-40ab-bc6e-bef2bf95fc49", "1", "UPDATED title!");
+			//ra.deleteItem("dd6156bb-161d-40ab-bc6e-bef2bf95fc49", "1");
+			String collUuid = "04378fa0-63cf-40eb-ad76-d5cb8fda6109";
+
+			//ra.createItemNoFiles(collUuid);
+			String stagingAreaUuid = ra.createStagingArea();
+			ra.uploadAttachment(stagingAreaUuid, "/home/cbeach/data/artifacts/test-data/pics", "Kitten in suitcase isolated on white.jpg");
+			ra.createItemWithAttachments(collUuid, stagingAreaUuid, "https://www.google.com", "cat.jpg");
+			logger.info("Scripting training run.");
+
+		} catch (Exception e) {
+			logger.error("Failed to run scripting training.  Reason="+e.getMessage());
+		}
+	}
     
     public void runSoapTests() {
     	try {
